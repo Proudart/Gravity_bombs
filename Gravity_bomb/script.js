@@ -1,12 +1,14 @@
 "use strict";
 
-var vp_width = 920,
-    vp_height = 690; //declare variables to hold the viewport size
+var vp_width = 1800,
+    vp_height = 900; //declare variables to hold the viewport size
 
 //declare global variables to hold the framework objects
 var viewport, world, engine, body;
 
 var ground;
+var wall1;
+var wall2;
 var crate;
 var fuzzball;
 
@@ -147,9 +149,12 @@ function preload() {
     //p5 defined function
 }
 
+//constructor(x, y, width, height) {
 
 function initialiseGame() {
     ground = new c_ground(vp_width / 2, vp_height - 10, vp_width, 20);
+    wall1 = new c_ground(vp_width, vp_height / 2, 20, vp_height);
+    wall2 = new c_ground(0, vp_height / 2, 20, vp_height);
     crate = new c_crate(get_random(500, 650), 400, 120, 120);
     fuzzball = new c_fuzzball(400, 200, 60);
 }
@@ -179,6 +184,8 @@ function paint_background() {
 
 function paint_assets() {
     ground.show();
+    wall1.show();
+    wall2.show();
     crate.show()
     fuzzball.show();
 }

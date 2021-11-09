@@ -1,0 +1,89 @@
+
+1. Design
+    1. Menu (could be an object)
+        - how is it going to look like 
+        - functionality (e.g choosing skins etc)
+    2. Design player class in UML 
+    3. Design rocket class in UML 
+
+2. Implementation
+    1. Create class for player
+        - Method: move, shoot, aim
+        - Attributes: size, HP, colour
+    2. Create class for rockets
+        - Method: move, damage, 
+    3. Create the playing area
+        - border, ground
+    4. Create the movement of the player
+        - Character move
+    5. Create two player switching 
+        - True false for who is playing
+    6. Create restart/end of game
+        - create a button and a end condition foir the game
+
+Graphics and sound will add minimal value to your game until you have fully met all the pass, merit and
+distinction requirements – do not absently invest time in this aspect - coloured blocks and shapes should be
+sufficient to achieve an overall distinction (see section 3 for more information).
+
+
+Pass
+    In order to achieve a PASS, you must provide evidence for the following requirements:
+        o At least a partially developed and partially playable demo/game.
+
+        o Implementation of at least one class with at least one instantiated object of that class; your class should
+    include and utilise internal member variables and methods/functions.
+
+        o Reasonable consistency of coding practice; readable, indentations, code spacing, variable & function
+    naming, comments and file & structure.
+
+        o Incorporated at least one agreed external resource.
+        
+        o Individual Viva: Able to demonstrate the game and provide at least reasonable answers related to the
+    design and development of the code, technical issues identified and addressed and/or any other aspects
+    related to this challenge.
+
+Merit
+    In order to achieve a MERIT, you must provide evidence for the following requirements:
+        o At least a partially complete playable demo/game with no blocking errors; non-consequential warnings
+    will be accepted.
+        o Implementation of at least two classes with multiple instantiated objects of each; your classes should
+    include and utilise internal member variables and methods/functions.
+        o Good consistency of coding practice; readable, indentations, code spacing, variable & function naming,
+    comments and file & structure and Don’t Repeat Yourself (DRY) principles.
+        o Incorporated and utilised both agreed external resources.
+        o Implemented collision detection and management based on at least one method (i.e. rectangle or
+    circular)
+        o Live ‘in game’ support for ‘Score’ and/or ‘lives’ (Fuzzballs) left mechanics.
+        o Individual Viva: Able to fully demonstrate the game and provide many detailed answers related to the
+    design and development of the code, technical issues identified and addressed and/or any other aspects
+    related to this challenge.
+
+Distinction
+    In order to achieve a DISTINCTION, you must meet and expand on the above merit and provide evidence to meet
+    the following requirements:
+        o A fully complete playable demo/game with no blocking errors or consequential warnings;
+    nonconsequential errors or warnings will be accepted but may impact marks if negatively affect testing
+    or gameplay.
+        o Implementation of effective and refactored class inheritance - at least one parent (abstract/super) class
+    with multiple instantiated child sub-classes objects; your classes should fully utilise constructor, extends
+    and super properties and methods to minimise duplication and code development in both parent and
+    child classes.
+        o Excellent consistency of coding practice; fully readable, indentations, code spacing, variable & function
+    naming, comments and file & structure and Don’t Repeat Yourself (DRY) principles.
+        o Incorporated and utilised both agreed external resources.
+        o Implemented precise collision detection and management methods for rectangle and circular shapes,
+    e.g., rectangle->rectangle, circular->circular, circular->rectangle and rectangle->circular.
+        o Implemented ‘realistic’ Fuzzball or projectile ‘throw/launch and release’ mechanism.
+        o Live ‘in game’ fully supported ‘Score’ detection and announcement methods
+        o Live ‘in game’ fully supported ‘lives/Fuzzballs left’ mechanics and display methods.
+        o Live ‘in game’ fully supported game state detection and management for:
+    game start, play, interaction, next attempt, end level/game and game restarting mechanics.
+
+        o Task and Design Readme (markdown) Document - your markdown document should include each
+    member’s name, an outline of your game, all member’s task allocations & completed status and (if you
+    are attempting a higher distinction) a clearly structured and explained review of each fully completed
+    higher gameplay feature (see below) needs to be included; each fully completed feature will add
+    additional value to your mark
+        o Individual Viva: Able to fully demonstrate the game and provide technically detailed and insightful
+    answers related to the design and development of the code, technical issues identified and addressed
+    and/or any other aspects related to this challenge – see deliver deeper gameplay for more information.
