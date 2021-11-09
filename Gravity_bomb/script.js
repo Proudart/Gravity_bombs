@@ -1,7 +1,7 @@
 "use strict";
 
-var vp_width = 1800,
-    vp_height = 900; //declare variables to hold the viewport size
+var vp_width = 1400,
+    vp_height = 700; //declare variables to hold the viewport size
 
 //declare global variables to hold the framework objects
 var viewport, world, engine, body;
@@ -9,7 +9,8 @@ var viewport, world, engine, body;
 var ground;
 var wall1;
 var wall2;
-var crate;
+var tank1;
+var tank2;
 var fuzzball;
 
 
@@ -27,6 +28,7 @@ class c_ground {
 
         this.x = x; //store the passed variables in the object
         this.y = y;
+
         this.width = width;
         this.height = height;
     }
@@ -38,14 +40,14 @@ class c_ground {
     show() {
         let pos = this.body.position; //create an shortcut alias 
         rectMode(CENTER); //switch centre to be centre rather than left, top
-        fill('#ffffff'); //set the fill colour
+        fill("f64005"); //set the fill colour
         rect(pos.x, pos.y, this.width, this.height); //draw the rectangle
     }
 }
 
 
-class c_crate {
-    constructor(x, y, width, height) {
+class tankCreate {
+    constructor(x, y, width, height, colour) {
         let options = {
                 restitution: 0.99,
                 friction: 0.030,
@@ -60,7 +62,10 @@ class c_crate {
         this.y = y;
         this.width = width;
         this.height = height;
+        this.colour = colour;
     }
+
+
 
     body() {
         return this.body; //return the created body
@@ -72,7 +77,7 @@ class c_crate {
 
         push(); //p5 translation 
         stroke("#000000");
-        fill('#ffffff');
+        fill(this.colour);
         rectMode(CENTER); //switch centre to be centre rather than left, top
         translate(pos.x, pos.y);
         rotate(angle);
@@ -109,7 +114,7 @@ class c_fuzzball {
         push(); //p5 translation 
         translate(pos.x, pos.y);
         rotate(angle);
-        fill('#ffffff');
+        fill("#708090");
         ellipseMode(CENTER); //switch centre to be centre rather than left, top
         circle(0, 0, this.diameter);
         pop();
@@ -125,6 +130,8 @@ function apply_velocity() {
 function apply_angularvelocity() {
     Matter.Body.setAngularVelocity(crate.body, Math.PI / get_random(3, 20));
 };
+
+
 
 
 function apply_force() {
@@ -149,13 +156,12 @@ function preload() {
     //p5 defined function
 }
 
-//constructor(x, y, width, height) {
-
 function initialiseGame() {
     ground = new c_ground(vp_width / 2, vp_height - 10, vp_width, 20);
     wall1 = new c_ground(vp_width, vp_height / 2, 20, vp_height);
     wall2 = new c_ground(0, vp_height / 2, 20, vp_height);
-    crate = new c_crate(get_random(500, 650), 400, 120, 120);
+    tank1 = new tankCreate(get_random(0, (vp_width / 2)), 600, 80, 40, "#708090");
+    tank2 = new tankCreate(get_random((vp_width / 2), vp_width), 600, 80, 40, "#00ff7f");
     fuzzball = new c_fuzzball(400, 200, 60);
 }
 
@@ -186,7 +192,8 @@ function paint_assets() {
     ground.show();
     wall1.show();
     wall2.show();
-    crate.show()
+    tank1.show();
+    tank2.show();
     fuzzball.show();
 }
 
