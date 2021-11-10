@@ -1,6 +1,10 @@
 https://www.markdownguide.org/getting-started/
 
-Team members:
+https://redstapler.co/matter-js-tutorial-game-dev/
+
+
+
+1. Team members:
     Diego Jaumandreu Ondaro
     Deividas Dapkus
 
@@ -30,22 +34,6 @@ Graphics and sound will add minimal value to your game until you have fully met 
 distinction requirements – do not absently invest time in this aspect - coloured blocks and shapes should be
 sufficient to achieve an overall distinction (see section 3 for more information).
 
-
-Pass
-    In order to achieve a PASS, you must provide evidence for the following requirements:
-        o At least a partially developed and partially playable demo/game.
-
-        o Implementation of at least one class with at least one instantiated object of that class; your class should
-    include and utilise internal member variables and methods/functions.
-
-        o Reasonable consistency of coding practice; readable, indentations, code spacing, variable & function
-    naming, comments and file & structure.
-
-        o Incorporated at least one agreed external resource.
-        
-        o Individual Viva: Able to demonstrate the game and provide at least reasonable answers related to the
-    design and development of the code, technical issues identified and addressed and/or any other aspects
-    related to this challenge.
 
 Merit
     In order to achieve a MERIT, you must provide evidence for the following requirements:
