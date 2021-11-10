@@ -121,16 +121,16 @@ class c_fuzzball {
     }
 }
 
-
-function apply_velocity() {
-    Matter.Body.setVelocity(fuzzball.body, { x: get_random(0, 20), y: get_random(0, 20) * -1 });
-};
+function keyPressed() {
+    switch (keyCode) {
+		case UP_ARROW: Matter.Body.setVelocity(fuzzball.body, { x: mouseX, y: mouseY }); break;
+	}
+}
 
 
 function apply_angularvelocity() {
     Matter.Body.setAngularVelocity(crate.body, Math.PI / get_random(3, 20));
 };
-
 
 
 
