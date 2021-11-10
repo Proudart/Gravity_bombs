@@ -66,15 +66,13 @@ class tankCreate {
     }
 
 
-
     body() {
         return this.body; //return the created body
     }
-
     show() {
         let pos = this.body.position; //create an shortcut alias 
+        console.log(pos.x)
         let angle = this.body.angle;
-
         push(); //p5 translation 
         stroke("#000000");
         fill(this.colour);
@@ -83,6 +81,10 @@ class tankCreate {
         rotate(angle);
         rect(0, 0, this.width, this.height);
         pop();
+
+        function barrelAim() {
+            rect(0, 0, this.width, this.height);
+        }
     }
 }
 
@@ -121,15 +123,18 @@ class c_fuzzball {
     }
 }
 
-function keyPressed() {
+//test for mouse position
+
+function keyPressed() { 
     switch (keyCode) {
-		case UP_ARROW: Matter.Body.setVelocity(fuzzball.body, { x: mouseX, y: mouseY }); break;
+		case UP_ARROW: Matter.Body.setVelocity(fuzzball.body, { x: mouseX/50, y: mouseY/50 }); break;
 	}
 }
 
 
+
 function apply_angularvelocity() {
-    Matter.Body.setAngularVelocity(crate.body, Math.PI / get_random(3, 20));
+    Matter.Body.setAngularVelocity(tank1.body, Math.PI / get_random(3, 20));
 };
 
 
@@ -140,7 +145,7 @@ function apply_force() {
         y: crate.body.position.y
     }, {
         x: 0.05,
-        y: get_random(50, 200) * -1
+        y: get_random(50, 2000) * -1
     });
 };
 
