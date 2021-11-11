@@ -33,24 +33,24 @@
 // }
 
 class tankCreate {
-    constructor(x, y, width, height, colour,state) {
-        let options = {
-                restitution: 0.99,
-                friction: 1,
-                density: 0.99,
-                frictionAir: 0.032,
-            }
-            //create the body
-        this.body = Matter.Bodies.rectangle(x, y, width, height, options);
-        Matter.World.add(world, this.body); //add to the matter world
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.colour = colour;
-        this.state = state
-    }
-// oh fuck
+    constructor(x, y, width, height, colour, state) {
+            let options = {
+                    restitution: 0.99,
+                    friction: 1,
+                    density: 0.99,
+                    frictionAir: 0.032,
+                }
+                //create the body
+            this.body = Matter.Bodies.rectangle(x, y, width, height, options);
+            Matter.World.add(world, this.body); //add to the matter world
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.colour = colour;
+            this.state = state
+        }
+        // oh fuck
 
     body() {
         return this.body; //return the created body
@@ -71,9 +71,21 @@ class tankCreate {
 
     barrelAim() {
         let pos = this.body.position;
-        switch(this.state) {
-            case true:push(); translate(pos.x,pos.y-20); let a = atan2(mouseY - pos.y,mouseX - pos.x); rotate(a); rect(0, 0, 60, 20); pop(); break;
-            case false: push(); translate(pos.x,pos.y-20); rect(0, 0, 60, 20); pop(); break;
+        switch (this.state) {
+            case true:
+                push();
+                translate(pos.x, pos.y - 20);
+                let a = atan2(mouseY - pos.y, mouseX - pos.x);
+                rotate(a);
+                rect(0, 0, 60, 20);
+                pop();
+                break;
+            case false:
+                push();
+                translate(pos.x, pos.y - 20);
+                rect(0, 0, 60, 20);
+                pop();
+                break;
         }
     }
 
@@ -82,10 +94,10 @@ class tankCreate {
         barrelAim()
     }
 
-  //Check google chat, no point in debugging this   
+    //Check google chat, no point in debugging this   
     mouseClicked() {
-        if (tank1['state'] == true) {tank1['state'] = false; } else tank1['state'] = true
-        if (tank2['state'] == true) {tank2['state'] = false} else tank2['state'] = true
+        if (tank1['state'] == true) { tank1['state'] = false; } else tank1['state'] = true
+        if (tank2['state'] == true) { tank2['state'] = false } else tank2['state'] = true
     }
 }
 
@@ -122,7 +134,7 @@ class c_ground {
 
 
 class tankCreate {
-    constructor(x, y, width, height, colour,state) {
+    constructor(x, y, width, height, colour, state) {
         let options = {
                 restitution: 0.99,
                 friction: 1,
@@ -159,15 +171,27 @@ class tankCreate {
 
     barrelAim() {
         let pos = this.body.position;
-        switch(this.state) {
-            case true:push(); translate(pos.x,pos.y-20); let a = atan2(mouseY - pos.y,mouseX - pos.x); rotate(a); rect(0, 0, 60, 20); pop(); break;
-            case false: push(); translate(pos.x,pos.y-20); rect(0, 0, 60, 20); pop(); break;
+        switch (this.state) {
+            case true:
+                push();
+                translate(pos.x, pos.y - 20);
+                let a = atan2(mouseY - pos.y, mouseX - pos.x);
+                rotate(a);
+                rect(0, 0, 60, 20);
+                pop();
+                break;
+            case false:
+                push();
+                translate(pos.x, pos.y - 20);
+                rect(0, 0, 60, 20);
+                pop();
+                break;
+        }
+        if (this.state)
+            if (keyIsDown(LEFT_ARROW)) {
+                Matter.Body.setVelocity(this.body, { x: -5, y: 0 });
+            } else if (keyIsDown(RIGHT_ARROW)) {
+            Matter.Body.setVelocity(this.body, { x: 5, y: 0 });
+        }
     }
-    if (this.state)
-    if (keyIsDown(LEFT_ARROW)) {
-        Matter.Body.setVelocity(this.body, { x: -5, y: 0 });
-      } else if (keyIsDown(RIGHT_ARROW)) {
-        Matter.Body.setVelocity(this.body, { x: 5, y: 0 });
-      }
-}
 }
