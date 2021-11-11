@@ -6,14 +6,7 @@ var vp_width = 920,
 
 //declare global variables to hold the framework objects
 var viewport, world, engine, body;
-
-var ground;
-var wall1;
-var wall2;
-var tank1;
-var tank2;
 var mode = 0;
-var bullets = [];
 var bullet;
 var tanks = [];
 var walls = [];
@@ -125,24 +118,31 @@ class c_ground {
 }
 
 class bulletCreate {
-    constructor(x, y, length, height, bulletSpeed) {
-        let options = {
-                restitution: 0.99,
-                friction: 1,
-                density: 0.99,
-                frictionAir: 0.032,
-            }
-            //create the body
-        this.body = Matter.Bodies.rectangle(x, y, width, height, options);
-        Matter.World.add(world, this.body); //add to the matter world
+    constructor(x, y, width, height, bulletSpeed) {
+            let options = {
+                    restitution: 0.99,
+                    friction: 1,
+                    density: 0.99,
+                    frictionAir: 0.032,
+                }
+                //create the body
+            this.body = Matter.Bodies.rectangle(x, y, width, height, options);
+            Matter.World.add(world, this.body); //add to the matter world
 
-        this.length = length;
-        this.height = height;
-        this.bulletSpeed = bulletSpeed;
-    }
-
+            this.width = length;
+            this.height = height;
+            this.bulletSpeed = bulletSpeed;
+        }
+        //mouseY - pos.y, mouseX - pos.x
     body() {
         return this.body
+    }
+
+    show() {
+        let pos = this.body.position; //create an shortcut alias 
+        rectMode(CENTER); //switch centre to be centre rather than left, top
+        fill("f64005"); //set the fill colour
+        rect(mouseX, mouseY, this.width, this.height); //draw the rectangle
     }
 
     bullet() {
@@ -221,6 +221,10 @@ function paint_assets() {
     tanks[1].show()
     tanks[0].barrelAim()
     tanks[0].show()
+    if (typeof bullet != "undefined") {
+        bullet.show();
+        console.log("cat")
+    }
 
 }
 
