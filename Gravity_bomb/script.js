@@ -1,5 +1,6 @@
 "use strict";
-
+// yo g can you update GitHub for me 
+// We dont need to import, this is not node.js 
 var vp_width = 1400,
     vp_height = 700; //declare variables to hold the viewport size
 
@@ -11,12 +12,73 @@ var wall1;
 var wall2;
 var tank1;
 var tank2;
-var fuzzball;
 var mode = 0;
+var bullets = [];
+
+class tankCreate {
+    constructor(x, y, width, height, colour,state) {
+        let options = {
+                restitution: 0.99,
+                friction: 1,
+                density: 0.99,
+                frictionAir: 0.032,
+            }
+            //create the body
+        this.body = Matter.Bodies.rectangle(x, y, width, height, options);
+        Matter.World.add(world, this.body); //add to the matter world
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.colour = colour;
+        this.state = state
+    }
+// oh fuck
+
+    body() {
+        return this.body; //return the created body
+    }
+
+    show() {
+        let pos = this.body.position; //create an shortcut alias
+        let angle = this.body.angle;
+        push(); //p5 translation 
+        stroke("#000000");
+        fill(this.colour);
+        rectMode(CENTER); //switch centre to be centre rather than left, top
+        translate(pos.x, pos.y);
+        rotate(angle);
+        rect(0, 0, this.width, this.height);
+        pop();
+    }
+
+    barrelAim() {
+        let pos = this.body.position;
+        switch(this.state) {
+            case true:push(); translate(pos.x,pos.y-20); let a = atan2(mouseY - pos.y,mouseX - pos.x); rotate(a); rect(0, 0, 60, 20); pop(); break;
+            case false: push(); translate(pos.x,pos.y-20); rect(0, 0, 60, 20); pop(); break;
+        }
+    }
+
+    tankAll() {
+        show()
+        barrelAim()
+        if (this.state) {
+        if (keyIsDown(RIGHT_ARROW)){
+            Matter.Body.setVelocity(this.body, { x: -5, y: 0 });
+            } else if (keyIsDown(RIGHT_ARROW)) {
+            Matter.Body.setVelocity(this.body, { x: 5, y: 0 });
+          }
+        }
+    }
 
 
-
-
+  //Check google chat, no point in debugging this   
+    mouseClicked() {
+        if (tank1['state'] == true) {tank1['state'] = false; } else tank1['state'] = true
+        if (tank2['state'] == true) {tank2['state'] = false} else tank2['state'] = true
+    }
+}
 
 class c_ground {
     constructor(x, y, width, height) {
@@ -49,115 +111,47 @@ class c_ground {
     }
 }
 
-
-class tankCreate {
-    constructor(x, y, width, height, colour,state) {
+class bulletCreate {
+    constructor(length,height,bulletSpeed) {
         let options = {
-                restitution: 0.99,
-                friction: 0.030,
-                density: 0.99,
-                frictionAir: 0.032,
-            }
-            //create the body
-        this.body = Matter.Bodies.rectangle(x, y, width, height, options);
-        Matter.World.add(world, this.body); //add to the matter world
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.colour = colour;
-        this.state = state
-    }
-
-
-    body() {
-        return this.body; //return the created body
-    }
-    show() {
-        let pos = this.body.position; //create an shortcut alias
-        let angle = this.body.angle;
-        push(); //p5 translation 
-        stroke("#000000");
-        fill(this.colour);
-        rectMode(CENTER); //switch centre to be centre rather than left, top
-        translate(pos.x, pos.y);
-        rotate(angle);
-        rect(0, 0, this.width, this.height);
-        pop();
-    }
-
-    barrelAim() {
-        let pos = this.body.position;
-        switch(this.state) {
-            case true:push(); translate(pos.x,pos.y-20); let a = atan2(mouseY - pos.y,mouseX - pos.x); rotate(a); rect(0, 0, 60, 20); pop(); break;
-            case false: push(); translate(pos.x,pos.y-20); rect(0, 0, 60, 20); pop(); break;
-    }
-}
-}
-
-// if (keyIsPressed) {
-//     if (keyCode == RIGHT_ARROW) {
-//      circleX +=5; 
-//     }  else if (keyCode == LEFT_ARROW) {
-//       circleX -= 5;
-//     } else if (keyCode == UP_ARROW) {
-//       circleY -= 5; 
-//     } else if (keyCode == DOWN_ARROW) {
-//       circleY +=5; 
-//     }
-//    }  
-
-
-function mouseClicked() {
-    if (tank1['state'] == true) {tank1['state'] = false; } else tank1['state'] = true
-    if (tank2['state'] == true) {tank2['state'] = false} else tank2['state'] = true
-}
-
-
-function keyIsDown() { 
-    switch (keyCode) {
-		//case UP_ARROW: Matter.Body.setVelocity(fuzzball.body, { x: mouseX/50, y: mouseY/50 }); break;
-		case UP_ARROW: Matter.Body.setVelocity(tank1.body, { x: 5, y: 0 }); break;
-	}
-}
-
-
-
-class c_fuzzball {
-    constructor(x, y, diameter) {
-        let options = {
-            restitution: 0.90,
-            friction: 0.005,
-            density: 0.95,
-            frictionAir: 0.005,
+            restitution: 0.99,
+            friction: 1,
+            density: 0.99,
+            frictionAir: 0.032,
         }
-        this.body = Matter.Bodies.circle(x, y, diameter / 2, options); //matter.js used radius rather than diameter
-        Matter.World.add(world, this.body);
+        //create the body
+    this.body = Matter.Bodies.rectangle(x, y, width, height, options);
+    Matter.World.add(world, this.body); //add to the matter world
 
-        this.x = x;
-        this.y = y;
-        this.diameter = diameter;
+    this.length = length;
+    this.height = height;
+    this.bulletSpeed = bulletSpeed;
+    this.bulletSize = 
+    let pos = this.body.position;
+    let angle = this.body.angle;
     }
 
-    body() {
-        return this.body;
+    body(){
+        return this.body
     }
-
-    show() {
-        let pos = this.body.position;
-        let angle = this.body.angle;
-
-        push(); //p5 translation 
-        translate(pos.x, pos.y);
-        rotate(angle);
-        fill("#708090");
-        ellipseMode(CENTER); //switch centre to be centre rather than left, top
-        circle(0, 0, this.diameter);
-        pop();
+    keyPressed() {
+        if (keyCode == 32)
+          bullets.push(new Bullet(pos.x, pos.y, bulletSize,
+            this.body.dir, bulletSpeed));
+      }
+    
+    bullet() {
+      if (this.body.length > 0) {
+        for (var i = 0; i < bullets.length; i++) {
+          bullets[i].render(200, 200, 0);
+          if (bullets[i].x < 0 || bullets[i].x > width ||
+            bullets[i].y < 0 || bullets[i].y > height)
+            bullets.splice(i, 1)
+        }
+      }
     }
 }
 
-//test for mouse position
 
 
 function apply_angularvelocity() {
@@ -194,7 +188,9 @@ function initialiseGame() {
     wall2 = new c_ground(0, vp_height / 2, 20, vp_height);
     tank1 = new tankCreate(get_random(0, (vp_width / 2)), 600, 80, 40, "#708090",false);
     tank2 = new tankCreate(get_random((vp_width / 2), vp_width), 600, 80, 40, "#00ff7f",true);
-    fuzzball = new c_fuzzball(400, 200, 60);
+    var tanks = [tank1,tank2]
+    var walls = [ground,wall1,wall2]
+
 }
 
 
@@ -223,16 +219,8 @@ function paint_background() {
 
 
 function paint_assets() {
-    ground.show();
-    wall1.show();
-    wall2.show();
-    tank1.barrelAim();
-    tank1.show();
-    tank2.barrelAim();
-    tank2.show();
-    fuzzball.show();
+    walls
 }
-
 
 function draw() {
 
@@ -245,3 +233,4 @@ function draw() {
         text("Press enter to start", 20, 40);
     }
 }
+
