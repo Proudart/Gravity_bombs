@@ -10,7 +10,8 @@ var mode = 0;
 var bullet;
 var tanks = [];
 var walls = [];
-var menuActive;
+var barrelPos;
+var shot = false;
 
 
 class tankCreate {
@@ -49,9 +50,9 @@ class tankCreate {
         pop();
         if (this.state) {
             if (keyIsDown(LEFT_ARROW)) {
-                Matter.Body.translate(this.body, { x: -1, y: 0 });
+                Matter.Body.translate(this.body, { x: -2.5, y: 0 });
             } else if (keyIsDown(RIGHT_ARROW)) {
-                Matter.Body.translate(this.body, { x: 1, y: 0 });
+                Matter.Body.translate(this.body, { x: 2.5, y: 0 });
             }
         }
 
@@ -59,6 +60,7 @@ class tankCreate {
 
     barrelAim() {
         let pos = this.body.position;
+        barrelPos = pos
         switch (this.state) {
             case true:
                 push();
@@ -79,94 +81,81 @@ class tankCreate {
 }
 
 function mouseClicked() {
-    console.log("dam")
-    for (let i = 0; i != tanks.length; i++) {
-        if (tanks[i]['state'] == true) { tanks[i]['state'] = false; } else tanks[i]['state'] = true
-        bullet = new bulletCreate(200, 200 - 20, 10, 20);
+    if (shot == false) {
+        for (let i = 0; i != tanks.length; i++) {
+            if (tanks[i]['state'] == true) {
+                tanks[i]['state'] = false;
+                bullet = new bulletCreate(barrelPos.x, barrelPos.y - 20, 20, 20);
+                Matter.Body.setVelocity(bullet.body, { x: 15, y: -(mouseY / 100) });
+            } else tanks[i]['state'] = true
+        }
+        shot = true;
+    } else shot = true
+    if (Matter.Detector.canCollide(bullet, tanks)) {
+        console.log("wow")
     }
 
 }
 class c_ground {
     constructor(x, y, width, height) {
         let options = {
-                isStatic: true,
-                restitution: 0.99,
-                friction: 0.20,
-                density: 0.99,
-            }
-            //create the body
+            isStatic: true,
+            restitution: 0.99,
+            friction: 0.20,
+            density: 0.99,
+        }
         this.body = Matter.Bodies.rectangle(x, y, width, height, options);
         Matter.World.add(world, this.body); //add to the matter world
 
-        this.x = x; //store the passed variables in the object
+        this.x = x;
         this.y = y;
-
         this.width = width;
         this.height = height;
     }
-
     body() {
-        return this.body; //return the created body
+        return this.body;
     }
 
     show() {
-        let pos = this.body.position; //create an shortcut alias 
-        rectMode(CENTER); //switch centre to be centre rather than left, top
-        fill("f64005"); //set the fill colour
-        rect(pos.x, pos.y, this.width, this.height); //draw the rectangle
+        let pos = this.body.position;
+        rectMode(CENTER);
+        fill("f64005");
+        rect(pos.x, pos.y, this.width, this.height);
     }
 }
 
 class bulletCreate {
-    constructor(x, y, width, height, bulletSpeed) {
-            let options = {
-                    restitution: 0.99,
-                    friction: 1,
-                    density: 0.99,
-                    frictionAir: 0.032,
-                }
-                //create the body
-            this.body = Matter.Bodies.rectangle(x, y, width, height, options);
-            Matter.World.add(world, this.body); //add to the matter world
-
-            this.width = length;
-            this.height = height;
-            this.bulletSpeed = bulletSpeed;
-        }
-        //mouseY - pos.y, mouseX - pos.x
+    constructor(x, y, width, height) {
+        let options = {
+                restitution: 0.90,
+                friction: 0.005,
+                density: 0.95,
+                frictionAir: 0.005,
+            }
+            //create the body
+        this.body = Matter.Bodies.rectangle(x, y, width, height, options);
+        Matter.World.add(world, this.body);
+        this.x = this.x;
+        this.y = this.y;
+        this.width = width;
+        this.height = height;
+        console.log(this.width, this.height)
+    }
     body() {
         return this.body
     }
-
     show() {
-        let pos = this.body.position; //create an shortcut alias 
-        rectMode(CENTER); //switch centre to be centre rather than left, top
-        fill("f64005"); //set the fill colour
-        rect(mouseX, mouseY, this.width, this.height); //draw the rectangle
-    }
-
-    bullet() {
-
+        let pos = this.body.position;
+        let angle = this.body.angle;
+        push()
+        translate(pos.x, pos.y);
+        fill('#f45842');
+        rotate(angle)
+        rect(0, 0, this.width, this.height); //draw the rectangle
+        pop()
     }
 }
 
-
-
-function apply_angularvelocity() {
-    Matter.Body.setAngularVelocity(tank1.body, Math.PI / get_random(3, 20));
-};
-
-
-
-function apply_force() {
-    Matter.Body.applyForce(crate.body, {
-        x: crate.body.position.x,
-        y: crate.body.position.y
-    }, {
-        x: 0.05,
-        y: get_random(50, 2000) * -1
-    });
-};
 
 
 function get_random(min, max) {
@@ -223,7 +212,6 @@ function paint_assets() {
     tanks[0].show()
     if (typeof bullet != "undefined") {
         bullet.show();
-        console.log("cat")
     }
 
 }
@@ -236,13 +224,4 @@ function draw() {
     paint_background(); //paint the default background
     paint_assets(); //paint the assets
 
-}
-
-function start() {
-    menuActive = false;
-    setup();
-}
-
-function resume() {
-    menuActive = false;
 }
